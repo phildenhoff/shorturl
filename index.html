@@ -1,0 +1,64 @@
+<html>
+    <title>mk.short</title>
+        <head>
+            <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    
+        <script>
+            function postData(url, data) {
+            // Default options are marked with *
+            return fetch(url, {
+                body: JSON.stringify(data), // must match 'Content-Type' header
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, same-origin, *omit
+                headers: {
+                'user-agent': 'Mozilla/4.0 MDN Example',
+                'content-type': 'application/json'
+                },
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, cors, *same-origin
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer', // *client, no-referrer
+            })
+            .then(resp => resp.json())
+        }
+
+        function postAndDisplay() {
+            postData('/shorten', {url: $("#url").val()})
+                .then( data => {
+                    let id = data["id"]
+                    $("#output").html(`<a href="%%hostname/${id}" target="_blank"  rel="noopener noreferer">Shortlink: ${id}</a>`);
+                });
+        }
+    
+        $(document).ready(function() {
+            $('#btnsubmit').on('click', function(e){
+                e.preventDefault();
+                postAndDisplay();
+            });
+
+            // Use ENTER to submit POST
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                    event.preventDefault();
+                    postAndDisplay();
+                    return false;
+                }
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <div>
+            <form>
+            <label>URL</label>
+            <input type="url" name="url" id="url" />
+            <button id="btnsubmit" type="button">SHORT!</button>
+            </form>
+        </div>
+        
+        <div id="output"></div>
+    </body>
+</html>

@@ -4,6 +4,18 @@ Loosely based on @xmonader's [Day 7 of Nim days](https://xmonader.github.io/nimd
 
 This is a url shortening website that takes input website URLs like "https://google.com/search?q=your%20favourite%20website" and distills them down into tiny links like "https://goo.gl/a7fv31".
 
+
+## Build
+
+To build, you must first install the required packages, then you can compile
+and run using `nim`.
+
+```bash
+nimble install jester
+nim c --run shorturl.nim
+```
+
+
 ## Differences from "Nim days"
 
 Databases have their value, but I didn't feel like setting one up. So, first
@@ -30,4 +42,4 @@ worth.
 
 Speaking of HTML, I also added a 404 page (it's very basic) and removed the
 accidental "submit" feature of the Enter key in the form. Now, if you press
-Enter, you just get the shortened URL. Yay! 🎉 
+Enter, you just get the shortened URL. Yay! 🎉
